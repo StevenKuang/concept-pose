@@ -1,0 +1,10 @@
+test, 3 950, 3 556, 3 bowl
+test, 13 610, 13 496, 13 iron
+test, 6 540, 6 915, 6 cat
+test, 14 715, 14 971, 14 lamp
+test, 1 1123, 1 938, 1 ape
+test, 13 241, 13 309, 13 iron
+test, 9 82, 9 1059, 9 duck
+test, 1 512, 1 1068, 1 ape
+test, 13 1121, 13 27, 13 iron
+test, 2 402, 2 972, 2 benchvise

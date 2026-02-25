@@ -1,0 +1,2832 @@
+[
+  {
+    "category_label": "camera",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "lens",
+          "camera_body",
+          "viewfinder",
+          "display_screen",
+          "grip",
+          "shutter_button",
+          "mode_dial",
+          "control_dial",
+          "flash",
+          "hot_shoe",
+          "lens_cap",
+          "lens_hood",
+          "eyecup",
+          "focus_ring",
+          "zoom_ring",
+          "battery_door",
+          "memory_card_door",
+          "strap_lug",
+          "lens_mount",
+          "directional_pad"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "lens",
+          "camera_body",
+          "viewfinder",
+          "display_screen",
+          "grip",
+          "shutter_button",
+          "mode_dial",
+          "control_dial",
+          "flash",
+          "hot_shoe",
+          "lens_cap",
+          "lens_hood",
+          "eyecup",
+          "focus_ring",
+          "zoom_ring",
+          "battery_door",
+          "memory_card_door",
+          "strap_lug",
+          "lens_mount",
+          "directional_pad"
+        ],
+        "part_labels": [
+          "control_dial",
+          "lens_cap",
+          "grip",
+          "camera_body",
+          "battery_door"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "bike",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "frame",
+          "fork",
+          "handlebar",
+          "stem",
+          "saddle",
+          "seatpost",
+          "tire",
+          "rim",
+          "hub",
+          "spoke",
+          "pedal",
+          "crankarm",
+          "chainring",
+          "chain",
+          "cassette",
+          "derailleur",
+          "shifter",
+          "brake_lever",
+          "brake_caliper",
+          "brake_disc"
+        ],
+        "part_labels": [
+          "seatpost",
+          "handlebar",
+          "tire",
+          "fork",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "shoe",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "outsole",
+          "midsole",
+          "heel",
+          "vamp",
+          "quarter",
+          "toe_cap",
+          "heel_counter",
+          "tongue",
+          "collar",
+          "eyestay",
+          "shoelace",
+          "strap",
+          "welt",
+          "foxing",
+          "logo"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "outsole",
+          "midsole",
+          "vamp",
+          "quarter",
+          "toe_cap",
+          "heel_counter",
+          "tongue",
+          "laces",
+          "eyelet",
+          "collar",
+          "heel",
+          "strap",
+          "buckle",
+          "logo",
+          "pull_tab"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "outsole",
+          "midsole",
+          "heel",
+          "toe_cap",
+          "vamp",
+          "quarter",
+          "heel_counter",
+          "tongue",
+          "eyestay",
+          "shoelace",
+          "collar",
+          "pull_tab",
+          "strap",
+          "buckle",
+          "zipper",
+          "logo",
+          "foxing",
+          "welt",
+          "shaft",
+          "mudguard"
+        ],
+        "part_labels": [
+          "mudguard",
+          "foxing",
+          "outsole",
+          "strap",
+          "shoelace"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "outsole",
+          "midsole",
+          "heel",
+          "toe_cap",
+          "vamp",
+          "quarter",
+          "heel_counter",
+          "tongue",
+          "eyestay",
+          "shoelace",
+          "collar",
+          "pull_tab",
+          "strap",
+          "buckle",
+          "zipper",
+          "logo",
+          "foxing",
+          "welt",
+          "shaft",
+          "mudguard"
+        ],
+        "part_labels": [
+          "strap",
+          "toe_cap",
+          "foxing",
+          "shoelace",
+          "logo"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "outsole",
+          "midsole",
+          "heel",
+          "toe_cap",
+          "vamp",
+          "quarter",
+          "heel_counter",
+          "tongue",
+          "eyestay",
+          "shoelace",
+          "collar",
+          "pull_tab",
+          "strap",
+          "buckle",
+          "zipper",
+          "logo",
+          "foxing",
+          "welt",
+          "shaft",
+          "mudguard"
+        ],
+        "part_labels": [
+          "shoelace",
+          "pull_tab",
+          "outsole",
+          "strap",
+          "zipper"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "outsole",
+          "midsole",
+          "heel",
+          "toe_cap",
+          "vamp",
+          "quarter",
+          "heel_counter",
+          "tongue",
+          "eyestay",
+          "shoelace",
+          "collar",
+          "pull_tab",
+          "strap",
+          "buckle",
+          "zipper",
+          "logo",
+          "foxing",
+          "welt",
+          "shaft",
+          "mudguard"
+        ],
+        "part_labels": [
+          "strap",
+          "foxing",
+          "welt",
+          "toe_cap",
+          "mudguard"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "book",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "front_cover",
+          "back_cover",
+          "spine",
+          "head",
+          "tail",
+          "fore_edge",
+          "dust_jacket",
+          "front_dust_jacket_flap",
+          "back_dust_jacket_flap",
+          "headband",
+          "tailband",
+          "cover_hinge",
+          "cover_art",
+          "title",
+          "author",
+          "publisher_logo",
+          "barcode",
+          "blurb",
+          "review_quote",
+          "ribbon_marker"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "cup",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "foot",
+          "stem",
+          "sleeve",
+          "decoration",
+          "spout",
+          "straw",
+          "sipping_hole",
+          "slider",
+          "infuser",
+          "gasket",
+          "saucer",
+          "latch",
+          "vent_hole",
+          "grip",
+          "flip_cap"
+        ],
+        "timestamp": "2025-11-05T00:35:17.341816"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "foot",
+          "stem",
+          "sleeve",
+          "decoration",
+          "spout",
+          "straw",
+          "sipping_hole",
+          "slider",
+          "infuser",
+          "gasket"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "spout",
+          "sleeve",
+          "stem",
+          "foot",
+          "saucer",
+          "straw",
+          "logo",
+          "decoration",
+          "slider",
+          "clip"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "spout",
+          "slider",
+          "seal",
+          "straw",
+          "sleeve",
+          "infuser",
+          "stem",
+          "foot",
+          "strap",
+          "decal"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "foot",
+          "stem",
+          "lid",
+          "sleeve",
+          "straw",
+          "spout",
+          "slider",
+          "gasket",
+          "handle_aperture",
+          "straw_hole",
+          "interior"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "saucer",
+          "stem",
+          "sleeve",
+          "graphic",
+          "interior",
+          "mouthpiece",
+          "straw",
+          "closure",
+          "thread",
+          "infuser"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "sip_hole",
+          "slider",
+          "sleeve",
+          "interior",
+          "stem"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "mouthpiece",
+          "slider",
+          "stem",
+          "sleeve",
+          "straw"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "sleeve",
+          "stem",
+          "foot",
+          "spout",
+          "straw",
+          "graphic",
+          "inner_surface",
+          "handle_aperture",
+          "lid_slider",
+          "gasket",
+          "threads",
+          "grip_band",
+          "thumb_rest",
+          "decorative_band",
+          "vent_hole"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "sleeve",
+          "spout",
+          "closure",
+          "straw_hole",
+          "straw",
+          "gasket",
+          "foot",
+          "stem",
+          "logo",
+          "decoration",
+          "grip",
+          "clip",
+          "vent_hole",
+          "seam",
+          "infuser"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "foot",
+          "inner_surface",
+          "lid",
+          "sipper",
+          "slider",
+          "seal",
+          "sleeve",
+          "straw",
+          "straw_hole",
+          "saucer",
+          "saucer_well",
+          "logo",
+          "graphic",
+          "text",
+          "grip",
+          "latch"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "stem",
+          "interior",
+          "sip_hole",
+          "sleeve",
+          "straw"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "foot",
+          "stem",
+          "saucer",
+          "sleeve",
+          "straw",
+          "spout",
+          "slider",
+          "mouthpiece",
+          "vent_hole",
+          "seal",
+          "hinge",
+          "latch",
+          "logo",
+          "measurement_marking",
+          "saucer_well"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "lid",
+          "sleeve",
+          "saucer",
+          "stem",
+          "foot",
+          "mouthpiece",
+          "lid_closure",
+          "graphic",
+          "seam",
+          "straw",
+          "knob"
+        ],
+        "part_labels": [
+          "handle",
+          "rim",
+          "base",
+          "body",
+          "lid",
+          "sleeve"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "rim",
+          "base",
+          "handle",
+          "lid",
+          "sleeve",
+          "spout",
+          "slider",
+          "button",
+          "lock",
+          "seal",
+          "vent_hole",
+          "straw_hole",
+          "stem",
+          "foot",
+          "saucer",
+          "logo",
+          "graphic",
+          "seam",
+          "handle_attachment"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "bottle",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "lid",
+          "spout",
+          "nozzle",
+          "pump",
+          "trigger",
+          "body",
+          "base",
+          "neck",
+          "shoulder",
+          "label",
+          "handle",
+          "grip",
+          "threads",
+          "tamper_evident_ring",
+          "overcap",
+          "sleeve",
+          "collar",
+          "punt",
+          "carry_loop"
+        ],
+        "timestamp": "2025-11-05T00:31:45.311513"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "lid",
+          "spout",
+          "nozzle",
+          "pump",
+          "trigger",
+          "body",
+          "base",
+          "neck",
+          "shoulder",
+          "label",
+          "handle",
+          "grip",
+          "threads",
+          "tamper_evident_ring"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "neck",
+          "shoulder",
+          "base",
+          "mouth",
+          "threads",
+          "cap",
+          "label",
+          "handle",
+          "pump",
+          "sprayer",
+          "nozzle",
+          "trigger",
+          "dropper",
+          "cork"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "body",
+          "neck",
+          "shoulder",
+          "base",
+          "mouth",
+          "label",
+          "sleeve",
+          "handle",
+          "threads",
+          "tamper_evident_band",
+          "pump_actuator",
+          "nozzle",
+          "dip_tube",
+          "embossing"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "nozzle",
+          "pump",
+          "trigger",
+          "neck",
+          "collar",
+          "shoulder",
+          "body",
+          "label",
+          "base",
+          "handle",
+          "grip",
+          "carry_loop",
+          "tamper_evident_ring",
+          "neck_ring"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "body",
+          "neck",
+          "base",
+          "shoulder",
+          "label",
+          "mouth",
+          "threads",
+          "handle",
+          "spout",
+          "punt",
+          "tamper_band",
+          "grip",
+          "sleeve",
+          "embossment"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "body",
+          "neck",
+          "mouth",
+          "shoulder",
+          "base",
+          "label",
+          "threads",
+          "punt",
+          "handle",
+          "pump",
+          "sprayer",
+          "nozzle",
+          "dip_tube",
+          "seal"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "sprayer",
+          "pump",
+          "trigger",
+          "mouth",
+          "threads",
+          "neck",
+          "shoulder",
+          "body",
+          "label",
+          "grip",
+          "handle",
+          "heel",
+          "base",
+          "punt"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "body",
+          "neck",
+          "base",
+          "label",
+          "shoulder",
+          "mouth",
+          "thread",
+          "handle",
+          "pump",
+          "sprayer",
+          "seal",
+          "punt",
+          "heel",
+          "straw"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "lid",
+          "sprayer",
+          "pump",
+          "spout",
+          "mouth",
+          "threads",
+          "neck",
+          "neck_ring",
+          "shoulder",
+          "body",
+          "label",
+          "handle",
+          "base",
+          "punt"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "bowl",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "rim",
+          "bottom",
+          "foot",
+          "handle",
+          "lid",
+          "spout",
+          "ear",
+          "pedestal",
+          "inner_surface",
+          "outer_surface",
+          "rib",
+          "embossment",
+          "medallion",
+          "divider",
+          "perforation",
+          "knob",
+          "groove",
+          "notch",
+          "marking"
+        ],
+        "timestamp": "2025-11-05T00:32:12.339057"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "rim",
+          "bottom",
+          "foot",
+          "handle",
+          "lid",
+          "spout",
+          "ear",
+          "pedestal",
+          "inner_surface",
+          "outer_surface",
+          "rib",
+          "embossment",
+          "medallion",
+          "divider"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "mug",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "interior",
+          "lid",
+          "sleeve",
+          "logo",
+          "decorative_element",
+          "handle_aperture",
+          "foot_ring",
+          "slider",
+          "sipper_hole",
+          "gasket",
+          "thumb_rest",
+          "spout",
+          "infuser",
+          "carrying_loop",
+          "vent_hole",
+          "spout_cover"
+        ],
+        "timestamp": "2025-11-05T00:34:51.913962"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "rim",
+          "base",
+          "interior",
+          "lid",
+          "sleeve",
+          "logo",
+          "decorative_element",
+          "handle_aperture",
+          "foot_ring",
+          "slider",
+          "sipper_hole",
+          "gasket",
+          "thumb_rest"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "can",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "lid",
+          "base",
+          "rim",
+          "pull_tab",
+          "rivet",
+          "score_line",
+          "shoulder",
+          "cap",
+          "nozzle",
+          "logo",
+          "barcode",
+          "nutrition_facts",
+          "ingredients_list",
+          "ridges",
+          "seam",
+          "net_content_statement",
+          "warning_label",
+          "recycling_symbol",
+          "product_image"
+        ],
+        "timestamp": "2025-11-05T00:33:43.834665"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "lid",
+          "base",
+          "rim",
+          "pull_tab",
+          "rivet",
+          "score_line",
+          "shoulder",
+          "cap",
+          "nozzle",
+          "logo",
+          "barcode",
+          "nutrition_facts",
+          "ingredients_list",
+          "ridges"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "lid",
+          "base",
+          "rim",
+          "pull_tab",
+          "rivet",
+          "opening",
+          "label",
+          "barcode",
+          "seam",
+          "shoulder",
+          "bead",
+          "cap",
+          "actuator",
+          "handle"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "lid",
+          "base",
+          "rim",
+          "label",
+          "neck",
+          "tab",
+          "pull_ring",
+          "opening",
+          "corrugation",
+          "handle",
+          "cap",
+          "nozzle",
+          "actuator",
+          "shoulder"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "lid",
+          "base",
+          "top_rim",
+          "bottom_rim",
+          "label",
+          "pull_tab",
+          "opening",
+          "rivet",
+          "cap",
+          "actuator",
+          "nozzle",
+          "shoulder",
+          "seam",
+          "handle"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "label",
+          "lid",
+          "base",
+          "top_rim",
+          "bottom_rim",
+          "pull_tab",
+          "rivet",
+          "aperture_panel",
+          "shoulder",
+          "bead",
+          "side_seam",
+          "dome",
+          "cap",
+          "actuator"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "lid",
+          "body",
+          "base",
+          "rim",
+          "seam",
+          "pull_tab",
+          "opening",
+          "neck",
+          "dome",
+          "label",
+          "barcode",
+          "ribs",
+          "cap",
+          "nozzle",
+          "handle"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "lid",
+          "base",
+          "top_rim",
+          "bottom_rim",
+          "pull_tab",
+          "rivet",
+          "opening_panel",
+          "label",
+          "ridges",
+          "neck",
+          "shoulder",
+          "cap",
+          "actuator",
+          "valve_cup"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "laptop",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "screen",
+          "keyboard",
+          "touchpad",
+          "webcam",
+          "hinge",
+          "lid",
+          "bottom_case",
+          "port",
+          "vent",
+          "speaker_grille",
+          "logo",
+          "bezel",
+          "rubber_foot",
+          "power_button",
+          "keyboard_deck",
+          "indicator_light",
+          "fingerprint_sensor",
+          "screw",
+          "touchpad_button",
+          "security_slot"
+        ],
+        "timestamp": "2025-11-05T00:34:25.421126"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "screen",
+          "keyboard",
+          "touchpad",
+          "webcam",
+          "hinge",
+          "lid",
+          "bottom_case",
+          "port",
+          "vent",
+          "speaker_grille",
+          "logo",
+          "bezel",
+          "rubber_foot",
+          "power_button",
+          "keyboard_deck"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "cracker box",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "brand_logo",
+          "product_name",
+          "product_image",
+          "flavor_description",
+          "net_weight",
+          "nutrition_facts_panel",
+          "ingredients_list",
+          "barcode",
+          "distributor_information",
+          "promotional_burst",
+          "tear_strip",
+          "recycling_symbol",
+          "allergen_information",
+          "marketing_text",
+          "certification_seal",
+          "serving_suggestion_text",
+          "best_by_date",
+          "opening_instructions",
+          "qr_code",
+          "storage_instructions"
+        ],
+        "timestamp": "2025-11-05T00:36:33.548807"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "brand_logo",
+          "product_name",
+          "product_image",
+          "flavor_description",
+          "net_weight",
+          "nutrition_facts_panel",
+          "ingredients_list",
+          "barcode",
+          "distributor_information",
+          "promotional_burst",
+          "tear_strip",
+          "recycling_symbol",
+          "allergen_information",
+          "marketing_text",
+          "certification_seal"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "plate",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "well",
+          "rim",
+          "lip",
+          "foot_ring",
+          "underside",
+          "wall",
+          "divider",
+          "compartment",
+          "handle",
+          "backstamp",
+          "surface_pattern",
+          "metallic_trim",
+          "textured_pattern",
+          "pierced_decoration",
+          "saucer_indentation",
+          "scalloped_edge",
+          "embossed_decoration",
+          "corner",
+          "sauce_well",
+          "hanging_hole"
+        ],
+        "timestamp": "2025-11-05T00:36:04.614215"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "well",
+          "rim",
+          "lip",
+          "foot_ring",
+          "underside",
+          "wall",
+          "divider",
+          "compartment",
+          "handle",
+          "backstamp",
+          "surface_pattern",
+          "metallic_trim",
+          "textured_pattern",
+          "pierced_decoration",
+          "saucer_indentation"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "box",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "lid",
+          "base",
+          "panel",
+          "flap",
+          "tuck_flap",
+          "tape",
+          "label",
+          "logo",
+          "barcode",
+          "icon",
+          "window",
+          "handle",
+          "tear_strip",
+          "crease",
+          "seam"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "lid",
+          "base",
+          "flap",
+          "panel",
+          "seam",
+          "tape",
+          "label",
+          "logo",
+          "graphic",
+          "text",
+          "barcode",
+          "handling_symbol",
+          "handle",
+          "perforation",
+          "window"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "panel",
+          "flap",
+          "tuck_flap",
+          "lid",
+          "tape",
+          "label",
+          "logo",
+          "barcode",
+          "text_marking",
+          "icon",
+          "handle",
+          "display_window",
+          "tear_strip",
+          "glue_seam",
+          "staple"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "panel",
+          "lid",
+          "base",
+          "closing_flap",
+          "inner_flap",
+          "seam",
+          "crease",
+          "edge",
+          "corner",
+          "closure_mechanism",
+          "handle",
+          "window",
+          "opening_feature",
+          "hanging_tab",
+          "label_area"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "panel",
+          "lid",
+          "base",
+          "major_flap",
+          "minor_flap",
+          "tuck_flap",
+          "locking_tab",
+          "handle",
+          "display_window",
+          "tear_strip",
+          "sealing_tape",
+          "label",
+          "barcode",
+          "printed_content",
+          "manufacturer_joint"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "panel",
+          "lid",
+          "flap",
+          "edge",
+          "corner",
+          "seam",
+          "crease",
+          "tab",
+          "slot",
+          "handle",
+          "window",
+          "tape",
+          "label",
+          "graphic",
+          "perforation"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "lid",
+          "base",
+          "panel",
+          "closing_flap",
+          "tuck_flap",
+          "handle",
+          "latch",
+          "hinge",
+          "fastener",
+          "tape",
+          "label",
+          "window",
+          "seam",
+          "edge",
+          "corner"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "cutlery",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "handle",
+          "blade",
+          "tine",
+          "bowl",
+          "neck",
+          "tip",
+          "cutting_edge",
+          "spine",
+          "serration",
+          "bolster",
+          "rivet",
+          "butt",
+          "spreader",
+          "hook",
+          "decoration"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "handle",
+          "neck",
+          "bolster",
+          "handle_end",
+          "tine",
+          "tine_tip",
+          "tine_slot",
+          "tine_base",
+          "bowl",
+          "bowl_rim",
+          "bowl_tip",
+          "blade",
+          "cutting_edge",
+          "spine",
+          "blade_tip"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "handle",
+          "blade",
+          "tine",
+          "bowl",
+          "neck",
+          "cutting_edge",
+          "spine",
+          "tip",
+          "bolster",
+          "rivet",
+          "butt",
+          "heel",
+          "tang",
+          "base_of_tines",
+          "handle_scale"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "handle",
+          "neck",
+          "bowl",
+          "tine",
+          "blade",
+          "cutting_edge",
+          "spine",
+          "tip",
+          "slot",
+          "bolster",
+          "butt",
+          "rivet",
+          "heel",
+          "shoulder",
+          "guard"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "handle",
+          "neck",
+          "bolster",
+          "handle_butt",
+          "decoration",
+          "bowl",
+          "bowl_rim",
+          "tine",
+          "tine_slot",
+          "tine_base",
+          "blade",
+          "blade_spine",
+          "blade_tip",
+          "cutting_edge",
+          "serration"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "glass",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "rim",
+          "body",
+          "base",
+          "stem",
+          "handle",
+          "lid",
+          "punt",
+          "facet",
+          "knob",
+          "engraving",
+          "logo",
+          "decal",
+          "frosting",
+          "gilding",
+          "measurement_marking"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "rim",
+          "lip",
+          "body",
+          "wall",
+          "stem",
+          "base",
+          "handle",
+          "punt",
+          "sham",
+          "heel",
+          "node",
+          "bulge",
+          "facet",
+          "fluting",
+          "decoration"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "rim",
+          "body",
+          "base",
+          "stem",
+          "foot",
+          "handle",
+          "facet",
+          "ribbing",
+          "bulge",
+          "waist",
+          "punt",
+          "knob",
+          "bead",
+          "pattern",
+          "logo"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "rim",
+          "body",
+          "base",
+          "stem",
+          "handle",
+          "foot",
+          "bowl",
+          "punt",
+          "heel",
+          "knob",
+          "facet",
+          "pattern",
+          "logo",
+          "etching",
+          "texture"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "rim",
+          "body",
+          "stem",
+          "base",
+          "handle",
+          "shoulder",
+          "waist",
+          "heel",
+          "knob",
+          "punt",
+          "marking",
+          "etching",
+          "facet",
+          "ridge",
+          "groove"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "teapot",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "spout",
+          "handle",
+          "lid",
+          "lid_handle",
+          "base",
+          "hinge",
+          "thumb_rest",
+          "insulator",
+          "spout_opening",
+          "body_opening",
+          "vent_hole",
+          "spout_base",
+          "handle_connector",
+          "infuser"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "spout_body",
+          "spout_tip",
+          "handle_grip",
+          "lid_body",
+          "lid_knob",
+          "base",
+          "rim",
+          "steam_hole",
+          "hinge",
+          "spout_base",
+          "upper_handle_connector",
+          "lower_handle_connector",
+          "lid_rim",
+          "strainer_holes"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "spout",
+          "handle",
+          "lid",
+          "lid_knob",
+          "base",
+          "rim",
+          "spout_tip",
+          "steam_hole",
+          "hinge",
+          "infuser",
+          "strainer",
+          "spout_cover",
+          "thumb_rest",
+          "whistle"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "spout_body",
+          "spout_tip",
+          "handle",
+          "lid",
+          "lid_knob",
+          "base",
+          "rim",
+          "steam_hole",
+          "hinge",
+          "strainer_holes",
+          "spout_base",
+          "handle_connector",
+          "lid_flange",
+          "shoulder"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "lid",
+          "spout",
+          "handle",
+          "finial",
+          "base",
+          "rim",
+          "vent",
+          "hinge",
+          "spout_tip",
+          "infuser",
+          "strainer_holes",
+          "grip",
+          "spout_base",
+          "handle_connector"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "basket",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "handle",
+          "rim",
+          "body",
+          "base",
+          "lid",
+          "latch",
+          "hinge",
+          "lining",
+          "foot",
+          "frame",
+          "handle_mount",
+          "tag",
+          "decorative_element",
+          "divider",
+          "caster",
+          "strap",
+          "buckle",
+          "mesh",
+          "pocket",
+          "zipper"
+        ],
+        "timestamp": "2025-11-05T00:37:31.616839"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "handle",
+          "rim",
+          "body",
+          "base",
+          "lid",
+          "latch",
+          "hinge",
+          "lining",
+          "foot",
+          "frame",
+          "handle_mount",
+          "tag",
+          "decorative_element",
+          "divider",
+          "caster"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "croc",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "upper",
+          "outsole",
+          "strap",
+          "rivet",
+          "ventilation_hole",
+          "toe_bumper",
+          "footbed",
+          "collar",
+          "sidewall",
+          "tread",
+          "logo",
+          "charm",
+          "midsole_stripe",
+          "heel_cup",
+          "drainage_port",
+          "lining",
+          "toe_box",
+          "heel_counter",
+          "vamp",
+          "footbed_nubs"
+        ],
+        "timestamp": "2025-11-05T00:35:44.526581"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "upper",
+          "outsole",
+          "strap",
+          "rivet",
+          "ventilation_hole",
+          "toe_bumper",
+          "footbed",
+          "collar",
+          "sidewall",
+          "tread",
+          "logo",
+          "charm",
+          "midsole_stripe",
+          "heel_cup",
+          "drainage_port"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "magazine",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "Headline",
+          "Subtitle",
+          "Byline",
+          "Paragraph",
+          "Image",
+          "Illustration",
+          "Caption",
+          "Pull Quote",
+          "Page Number",
+          "Advertisement",
+          "Table",
+          "Chart",
+          "Separator",
+          "Sidebar",
+          "Running Head",
+          "Table of Contents",
+          "Masthead",
+          "Cover Line",
+          "Barcode",
+          "Magazine Title"
+        ],
+        "timestamp": "2025-11-05T00:39:06.028072"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "Headline",
+          "Subtitle",
+          "Byline",
+          "Paragraph",
+          "Image",
+          "Illustration",
+          "Caption",
+          "Pull Quote",
+          "Page Number",
+          "Advertisement",
+          "Table",
+          "Chart",
+          "Separator",
+          "Sidebar",
+          "Running Head"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "milk carton",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "spout",
+          "handle",
+          "body_panel",
+          "base",
+          "logo",
+          "brand_name",
+          "product_name",
+          "nutrition_facts_panel",
+          "ingredient_list",
+          "barcode",
+          "expiration_date",
+          "volume_info",
+          "recycling_symbol",
+          "health_claim_icon",
+          "gable_top",
+          "product_image",
+          "distributor_info_panel",
+          "opening_instructions",
+          "storage_instructions"
+        ],
+        "timestamp": "2025-11-05T00:38:23.527766"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "spout",
+          "handle",
+          "body_panel",
+          "base",
+          "logo",
+          "brand_name",
+          "product_name",
+          "nutrition_facts_panel",
+          "ingredient_list",
+          "barcode",
+          "expiration_date",
+          "volume_info",
+          "recycling_symbol",
+          "health_claim_icon"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "plastic bottle",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "threads",
+          "security_ring",
+          "mouth",
+          "neck",
+          "shoulder",
+          "body",
+          "label",
+          "handle",
+          "grip_area",
+          "base",
+          "embossing",
+          "pump",
+          "sprayer",
+          "spout",
+          "overcap",
+          "trigger",
+          "nozzle",
+          "sleeve",
+          "straw"
+        ],
+        "timestamp": "2025-11-05T00:38:02.178847"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "threads",
+          "security_ring",
+          "mouth",
+          "neck",
+          "shoulder",
+          "body",
+          "label",
+          "handle",
+          "grip_area",
+          "base",
+          "embossing",
+          "pump",
+          "sprayer",
+          "spout"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "plastic container",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "lid",
+          "body",
+          "handle",
+          "base",
+          "rim",
+          "gasket",
+          "vent",
+          "spout",
+          "latch",
+          "hinge",
+          "thread",
+          "grip",
+          "lip",
+          "wall",
+          "button",
+          "cap",
+          "neck",
+          "shoulder",
+          "divider",
+          "trigger"
+        ],
+        "timestamp": "2025-11-05T00:37:08.725445"
+      },
+      {
+        "llm_model": "manual",
+        "response": [
+          "lid",
+          "body",
+          "handle",
+          "base",
+          "rim",
+          "gasket",
+          "vent",
+          "spout",
+          "latch",
+          "hinge",
+          "thread",
+          "grip",
+          "lip",
+          "wall",
+          "button"
+        ],
+        "part_labels": [
+          "lid",
+          "body",
+          "handle",
+          "base",
+          "rim",
+          "gasket",
+          "vent",
+          "spout",
+          "latch",
+          "hinge",
+          "thread",
+          "grip",
+          "lip",
+          "wall",
+          "button"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "remote",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "casing",
+          "battery_cover",
+          "power_button",
+          "navigation_pad",
+          "volume_control",
+          "channel_control",
+          "number_pad",
+          "media_control_buttons",
+          "home_button",
+          "back_button",
+          "menu_button",
+          "mute_button",
+          "input_button",
+          "shortcut_buttons",
+          "infrared_emitter",
+          "voice_button",
+          "indicator_light",
+          "brand_logo",
+          "record_button",
+          "settings_button"
+        ],
+        "timestamp": "2025-11-05T00:39:35.984838"
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "casing",
+          "battery_cover",
+          "power_button",
+          "navigation_pad",
+          "volume_control",
+          "channel_control",
+          "number_pad",
+          "media_control_buttons",
+          "home_button",
+          "back_button",
+          "menu_button",
+          "mute_button",
+          "input_button",
+          "shortcut_buttons",
+          "infrared_emitter"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "battery_cover",
+          "power_button",
+          "directional_pad",
+          "select_button",
+          "volume_control",
+          "channel_control",
+          "number_pad",
+          "media_control_button",
+          "shortcut_button",
+          "microphone_button",
+          "navigation_button",
+          "infrared_emitter",
+          "color_button",
+          "display_screen"
+        ]
+      },
+      {
+        "llm_model": "manual",
+        "response": [
+          "body",
+          "battery cover",
+          "button",
+          "display",
+          "LED",
+          "speaker",
+          "microphone",
+          "IR emitter",
+          "grip",
+          "antenna",
+          "logo",
+          "hinge",
+          "latch",
+          "bezel",
+          "screw"
+        ],
+        "part_labels": [
+          "body",
+          "battery cover",
+          "button",
+          "display",
+          "LED",
+          "speaker",
+          "microphone",
+          "IR emitter",
+          "grip",
+          "antenna",
+          "logo",
+          "hinge",
+          "latch",
+          "bezel",
+          "screw"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "tube",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "cap",
+          "nozzle",
+          "neck",
+          "shoulder",
+          "thread",
+          "crimp",
+          "rim",
+          "flange",
+          "base",
+          "plunger",
+          "valve",
+          "label",
+          "grip",
+          "connector"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "cap",
+          "nozzle",
+          "thread",
+          "shoulder",
+          "crimp",
+          "label",
+          "plunger",
+          "flange",
+          "orifice",
+          "hinge",
+          "lip",
+          "graduation_marking",
+          "writing_area",
+          "grip"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "shoulder",
+          "crimp",
+          "neck",
+          "thread",
+          "nozzle",
+          "cap_body",
+          "lid",
+          "hinge",
+          "cap_grip",
+          "foil_seal",
+          "main_label",
+          "logo",
+          "barcode",
+          "info_panel"
+        ]
+      },
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "cap",
+          "nozzle",
+          "shoulder",
+          "threads",
+          "end_seal",
+          "orifice",
+          "label",
+          "valve",
+          "flange",
+          "connector",
+          "plunger",
+          "grip",
+          "markings",
+          "neck"
+        ]
+      }
+    ]
+  },
+  {
+    "category_label": "power_drill",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "chuck",
+          "handle",
+          "trigger",
+          "battery",
+          "body_housing",
+          "motor_vent",
+          "clutch_selector",
+          "gear_selector",
+          "forward_reverse_switch",
+          "drill_bit",
+          "led_light",
+          "belt_clip",
+          "side_handle",
+          "power_cord",
+          "bit_holder",
+          "trigger_lock_button",
+          "level_indicator",
+          "depth_stop",
+          "battery_release_latch",
+          "battery_gauge_indicator"
+        ],
+        "timestamp": "2025-11-04T21:23:09.130190"
+      }
+    ]
+  },
+  {
+    "category_label": "jug",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "handle",
+          "spout",
+          "lid",
+          "base",
+          "mouth",
+          "rim",
+          "neck",
+          "shoulder",
+          "cap",
+          "hinge",
+          "latch",
+          "button",
+          "lever",
+          "knob",
+          "plunger",
+          "filter",
+          "infuser",
+          "seal",
+          "vent"
+        ],
+        "timestamp": "2025-11-04T21:23:32.002240"
+      }
+    ]
+  },
+  {
+    "category_label": "scissors",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "blade",
+          "handle",
+          "pivot",
+          "cutting_edge",
+          "blade_spine",
+          "blade_tip",
+          "blade_face",
+          "shank",
+          "finger_bow",
+          "finger_rest",
+          "handle_grip",
+          "stopper",
+          "serrated_edge",
+          "wire_stripper_notch",
+          "ricasso",
+          "tension_adjuster",
+          "safety_lock",
+          "spring",
+          "bottle_opener",
+          "nut_cracker"
+        ],
+        "timestamp": "2025-11-04T21:24:00.032598"
+      }
+    ]
+  },
+  {
+    "category_label": "clamp",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "frame",
+          "bar",
+          "fixed_jaw",
+          "movable_jaw",
+          "pad",
+          "screw",
+          "handle",
+          "swivel",
+          "spring",
+          "pin",
+          "trigger",
+          "clutch",
+          "lever",
+          "linkage",
+          "base",
+          "adjustment_screw",
+          "end_stop",
+          "crank",
+          "locking_nut",
+          "fastener"
+        ],
+        "timestamp": "2025-11-04T21:24:35.253662"
+      }
+    ]
+  },
+  {
+    "category_label": "banana",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "peel",
+          "stem",
+          "crown",
+          "blossom_end",
+          "peel_ridge",
+          "peel_face",
+          "exposed_flesh",
+          "peel_string",
+          "peel_interior",
+          "bruise",
+          "sugar_spot",
+          "green_patch",
+          "black_patch",
+          "cut_surface",
+          "peel_tear",
+          "stem_tip",
+          "peel_flap",
+          "seed",
+          "core",
+          "dried_flower_remnant"
+        ],
+        "timestamp": "2025-11-04T21:25:08.130834"
+      }
+    ]
+  },
+  {
+    "category_label": "wood_block",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "face",
+          "edge",
+          "corner",
+          "wood_grain",
+          "knot",
+          "growth_ring",
+          "bark",
+          "crack",
+          "hole",
+          "groove",
+          "notch",
+          "chamfer",
+          "rounded_edge",
+          "carving",
+          "stamp",
+          "paint",
+          "stain",
+          "saw_mark",
+          "dent",
+          "splinter"
+        ],
+        "timestamp": "2025-11-04T21:25:27.787866"
+      }
+    ]
+  },
+  {
+    "category_label": "foam_brick",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "large_surface",
+          "medium_surface",
+          "small_surface",
+          "long_edge",
+          "medium_edge",
+          "short_edge",
+          "corner",
+          "bevel",
+          "logo",
+          "text_label",
+          "sticker",
+          "dent",
+          "scratch",
+          "chip",
+          "crease",
+          "cut_mark",
+          "stain",
+          "wear_patch",
+          "molding_mark",
+          "pore"
+        ],
+        "timestamp": "2025-11-04T21:25:52.234192"
+      }
+    ]
+  },
+  {
+    "category_label": "marker",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "body",
+          "cap",
+          "tip",
+          "clip",
+          "end_cap",
+          "grip",
+          "nose_cone",
+          "logo",
+          "text",
+          "button",
+          "ink_window",
+          "barcode",
+          "eraser",
+          "color_indicator",
+          "divider_ring",
+          "cap_top",
+          "vent_hole",
+          "lanyard_hole",
+          "clip_mount",
+          "cap_inner_seal"
+        ],
+        "timestamp": "2025-11-04T21:26:22.260949"
+      }
+    ]
+  },
+  {
+    "category_label": "ape",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "head",
+          "eye",
+          "ear",
+          "nose",
+          "mouth",
+          "neck",
+          "torso",
+          "shoulder",
+          "arm",
+          "hand",
+          "leg",
+          "foot",
+          "buttocks",
+          "finger",
+          "toe"
+        ],
+        "timestamp": "2025-11-06T19:46:11.606851"
+      }
+    ]
+  },
+  {
+    "category_label": "lamp",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "base",
+          "stand",
+          "arm",
+          "joint",
+          "head",
+          "shade",
+          "diffuser",
+          "light_bulb",
+          "socket",
+          "switch",
+          "power_cord",
+          "plug",
+          "finial",
+          "harp",
+          "clamp"
+        ],
+        "timestamp": "2025-11-06T19:46:35.166981"
+      }
+    ]
+  },
+  {
+    "category_label": "cam",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "lens",
+          "camera_body",
+          "screen",
+          "viewfinder",
+          "shutter_button",
+          "mode_dial",
+          "flash",
+          "hot_shoe",
+          "grip",
+          "lens_cap",
+          "battery_door",
+          "mount",
+          "microphone",
+          "speaker",
+          "indicator_light"
+        ],
+        "timestamp": "2025-11-06T19:47:07.368386"
+      }
+    ]
+  },
+  {
+    "category_label": "cat",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "head",
+          "ear",
+          "eye",
+          "nose",
+          "muzzle",
+          "whisker",
+          "neck",
+          "shoulder",
+          "chest",
+          "back",
+          "belly",
+          "rump",
+          "leg",
+          "paw",
+          "tail"
+        ],
+        "timestamp": "2025-11-06T19:47:45.903452"
+      }
+    ]
+  },
+  {
+    "category_label": "driller",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "chuck",
+          "drill_bit",
+          "body",
+          "handle",
+          "trigger",
+          "battery",
+          "power_cord",
+          "vents",
+          "clutch_ring",
+          "direction_switch",
+          "speed_selector",
+          "led_light",
+          "auxiliary_handle",
+          "bit_holder",
+          "logo"
+        ],
+        "timestamp": "2025-11-06T19:48:11.185991"
+      }
+    ]
+  },
+  {
+    "category_label": "holepuncher",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "handle",
+          "base",
+          "punch_head_housing",
+          "punch_rod",
+          "chad_collector",
+          "paper_guide",
+          "paper_insertion_slot",
+          "pivot",
+          "spring",
+          "lock",
+          "fastener",
+          "foot",
+          "handle_grip",
+          "guide_fastener",
+          "label"
+        ],
+        "timestamp": "2025-11-06T20:00:01.383555"
+      }
+    ]
+  },
+  {
+    "category_label": "iron",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "soleplate",
+          "handle",
+          "power_cord",
+          "temperature_control",
+          "steam_button",
+          "spray_button",
+          "water_tank",
+          "water_inlet_cover",
+          "spray_nozzle",
+          "heel_rest",
+          "housing",
+          "indicator_light",
+          "tip",
+          "steam_vents",
+          "steam_control"
+        ],
+        "timestamp": "2025-11-06T20:00:24.156167"
+      }
+    ]
+  },
+  {
+    "category_label": "phone",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "screen",
+          "bezel",
+          "frame",
+          "back_panel",
+          "rear_camera_module",
+          "front_camera",
+          "flash",
+          "logo",
+          "power_button",
+          "volume_button",
+          "charging_port",
+          "speaker_grille",
+          "microphone_hole",
+          "sim_tray",
+          "antenna_band"
+        ],
+        "timestamp": "2025-11-06T20:00:48.104440"
+      }
+    ]
+  },
+  {
+    "category_label": "benchvise",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "base",
+          "static_jaw",
+          "dynamic_jaw",
+          "static_jaw_face",
+          "dynamic_jaw_face",
+          "main_screw",
+          "handle",
+          "handle_knob",
+          "anvil",
+          "slide",
+          "swivel_base",
+          "swivel_lock",
+          "pipe_jaw",
+          "jaw_face_screw",
+          "mounting_hole"
+        ],
+        "timestamp": "2025-11-06T20:01:13.704244"
+      }
+    ]
+  },
+  {
+    "category_label": "duck",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "head",
+          "eye",
+          "beak",
+          "nostril",
+          "neck",
+          "breast",
+          "back",
+          "belly",
+          "wing",
+          "speculum",
+          "side",
+          "rump",
+          "tail",
+          "leg",
+          "foot"
+        ],
+        "timestamp": "2025-11-06T20:01:44.550190"
+      }
+    ]
+  },
+  {
+    "category_label": "eggbox",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "lid",
+          "base",
+          "hinge",
+          "clasp",
+          "egg_cup",
+          "cone",
+          "rim",
+          "side_wall",
+          "top_panel",
+          "label",
+          "text",
+          "barcode",
+          "ventilation_hole",
+          "divider",
+          "finger_tab"
+        ],
+        "timestamp": "2025-11-06T20:02:06.032851"
+      }
+    ]
+  },
+  {
+    "category_label": "glue",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "cap",
+          "body",
+          "nozzle",
+          "label",
+          "glue_material",
+          "trigger",
+          "handle",
+          "power_cord",
+          "stand",
+          "base",
+          "tube",
+          "brush_applicator",
+          "spreader_tip",
+          "collar",
+          "seal"
+        ],
+        "timestamp": "2025-11-06T20:02:36.727912"
+      }
+    ]
+  },
+  {
+    "category_label": "car",
+    "candidate_labels": [
+      {
+        "llm_model": "gemini-2.5-pro",
+        "response": [
+          "wheel",
+          "door",
+          "roof",
+          "trunk",
+          "hood",
+          "bumper",
+          "mirror",
+          "grille",
+          "fender",
+          "window",
+          "tire",
+          "license plate",
+          "taillight",
+          "headlight",
+          "windshield"
+        ],
+        "timestamp": "2026-02-25T11:36:45.708424"
+      }
+    ]
+  }
+]

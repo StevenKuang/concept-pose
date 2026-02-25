@@ -1,0 +1,63 @@
+{
+  "name": "NOCS-Real275",
+  "type": "real275",
+  "description": "NOCS Real275 real-world test set for category-level 6D pose estimation",
+
+  "paths": {
+    "root": "data/nocs",
+    "mesh_dir": "obj_models/real_test",
+    "scenes_dir": "real_test",
+    "gt_dir": "gts/real_test"
+  },
+
+  "format": {
+    "rgb_pattern": "{frame:04d}_color.png",
+    "depth_pattern": "{frame:04d}_depth.png",
+    "mask_pattern": "{frame:04d}_mask.png",
+    "coord_pattern": "{frame:04d}_coord.png",
+    "meta_pattern": "{frame:04d}_meta.txt",
+    "gt_pattern": "results_real_test_scene_{scene}_{frame:04d}.pkl",
+    "description": "Frame numbering is 0-padded 4 digits (e.g., 0000.png)"
+  },
+
+  "preprocessing": {
+    "target_size": 518,
+    "depth_scale": 1000,
+    "description": "Depth values in PNG are in millimeters, divided by 1 to get meters"
+  },
+
+  "camera": {
+    "intrinsics": [
+      [591.0125, 0, 322.525],
+      [0, 590.16775, 244.11084],
+      [0, 0, 1]
+    ],
+    "description": "Fixed camera intrinsics for all Real275 test frames"
+  },
+
+  "categories": [
+    "bottle",
+    "bowl",
+    "camera",
+    "can",
+    "laptop",
+    "mug"
+  ],
+
+  "num_scenes": 6,
+  "total_frames": 2754,
+  "has_gt_masks": true,
+
+  "params": {
+    "num_scenes": 6,
+    "target_size": 518
+  },
+
+  "parts_json": "concept_pose/partonomy/parts.json",
+
+  "notes": {
+    "description": "Real275 is part of the NOCS dataset benchmark",
+    "objects": "18 object instances (3 per category) from real-world scenes",
+    "path_config": "Update paths.root to point to your NOCS dataset directory"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "type": "tyol",
+  "description": "TYOL (ToyotaLight) BOP test set - 21 scenes, 21 object classes",
+  "paths": {
+    "root": "data/tyol",
+    "oryon_root": "data/oryon_data/toyl",
+    "mesh_dir": "tyol_models/models"
+  },
+  "num_scenes": 21,
+  "preprocessing": {
+    "target_size": 518,
+    "depth_scale": 1000.0,
+    "description": "Square resize with padding to maintain aspect ratio. Depth scale 1000 converts mm to m."
+  },
+  "camera": {
+    "description": "Per-frame camera intrinsics loaded from scene_camera.json (BOP format). Intrinsics vary per frame (fx ~530-545, fy ~535-550, cx ~305-325, cy ~230-245)."
+  },
+  "mesh_scale": 0.001,
+  "mesh_scale_description": "BOP meshes are in millimeters, convert to meters for pose evaluation",
+  "parts_json": "concept_pose/partonomy/parts.json",
+  "objects": {
+    "num_classes": 21,
+    "categories": [
+      "remote", "magazine", "mug", "mug", "mug", "mug", "mug",
+      "plastic bottle", "croc", "cup", "cup", "plate", "plate",
+      "cracker box", "milk carton", "plastic container", "can", "can",
+      "basket", "mug", "mug"
+    ],
+    "description": "21 everyday objects captured in tabletop scenarios"
+  },
+  "format": {
+    "rgb_pattern": "{scene:06d}/rgb/{frame:06d}.png",
+    "depth_pattern": "{scene:06d}/depth/{frame:06d}.png",
+    "mask_pattern": "{scene:06d}/mask_visib/{frame:06d}.png",
+    "scene_gt_pattern": "{scene:06d}/scene_gt.json",
+    "description": "BOP19 format with visible masks and GT poses in JSON"
+  },
+  "notes": [
+    "Depth maps are in PNG format with 1mm scale (uint16, millimeters)",
+    "GT poses in scene_gt.json: cam_R_m2c (flattened 3x3), cam_t_m2c (mm units)",
+    "Masks are instance-level BOP format: mask_visib/{frame:06d}_{instance:06d}.png",
+    "Models in tyol_models/models/ (BOP .ply format, millimeters)",
+    "Object names and descriptions in Oryon metadata (models_name.json)"
+  ]
+}

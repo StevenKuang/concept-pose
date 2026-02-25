@@ -1,0 +1,79 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
+
+# Data and models (too large for git)
+outputs/
+/models/
+*.npz
+*.obj
+*.ply
+*.pth
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Ignore data directory but allow specific exceptions
+/data/*
+!/data/oryon_data/
+
+# Re-ignore everything in oryon_data except specific subdirectories
+/data/oryon_data/*
+
+# Exception: Track Oryon YCB-V pairs for reproducibility
+!/data/oryon_data/ycbv/
+!/data/oryon_data/ycbv/fixed_split/
+!/data/oryon_data/ycbv/fixed_split/**
+
+# Exception: Track Oryon LINEMOD pairs for reproducibility
+!/data/oryon_data/lm/
+!/data/oryon_data/lm/fixed_split/
+!/data/oryon_data/lm/fixed_split/**
+
+results_*.json
+wild_pose_output*

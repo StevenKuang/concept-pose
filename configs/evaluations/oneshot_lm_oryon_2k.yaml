@@ -1,0 +1,61 @@
+# LINEMOD Oryon 2K Test
+# Loads pre-exported 2k same-scene pairs from Oryon format
+# Ensures exact reproducibility using the same fixed split
+
+name: oneshot_lm_oryon_2k
+mode: oneshot
+description: LINEMOD Oryon-style evaluation - 2k same-scene pairs (fixed split)
+
+# Dataset configuration
+dataset:
+  type: lm
+  config: configs/datasets/lm.json
+
+# Object semantic labels configuration
+object:
+  num_semantic_labels: 15
+
+# Test pairs configuration - Load from Oryon fixed split
+pairs:
+  sampling:
+    mode: oryon_fixed_lm_split  # Load from pre-exported files
+    oryon_root: data/oryon_data/lm
+    split_name: same_scene_test
+    num_pairs: null  # null = use all pairs in the split
+
+# Pose estimation parameters
+estimation:
+  voxel_resolution: 64
+  ransac_iterations: 100000
+  ransac_threshold: 0.01
+  similarity_threshold: -2  # no filtering
+  max_correspondences: 10000
+  use_icp: true
+  anchor_pose_mode: relative
+  temperature: 1.0
+  use_gpu_ransac: true  # Enable GPU-accelerated RANSAC (50-100x speedup)
+  ransac_batch_size: 1024  # Batch size for GPU RANSAC
+  voxelize_anchor: false
+  voxelize_query: false
+
+# Evaluation metrics configuration
+metrics:
+  renderer: pytorch3d
+  device: cuda
+
+# Mask generation settings
+mask_generation:
+  use_gt_masks: true
+  simplify_prompts: true
+  save_failed_masks: false
+
+# Output configuration
+output:
+  results_file: results_lm_oryon_2k.json
+  visualize: false
+  viz_dir: models/viz_lm_oryon_2k
+  max_pairs: null
+
+# Execution options
+device: cuda
+num_workers: 0

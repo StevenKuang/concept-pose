@@ -1,0 +1,67 @@
+{
+  "type": "ycbv",
+  "description": "YCB-Video BOP test set - 12 test scenes (48-59), 21 unique objects",
+  "paths": {
+    "root": "data/ycbv",
+    "category_mapping": "configs/evaluations/ycbv_object_categories.txt",
+    "mesh_dir": "models/models"
+  },
+  "num_scenes": 92,
+  "preprocessing": {
+    "target_size": 518,
+    "depth_scale": 10000.0,
+    "description": "Square resize with padding to maintain aspect ratio. Depth scale 10000 converts 0.1mm to m."
+  },
+  "camera": {
+    "description": "Per-frame camera intrinsics loaded from scene_camera.json (BOP format). Intrinsics vary per frame."
+  },
+  "mesh_scale": 0.001,
+  "mesh_scale_description": "BOP meshes are in millimeters, convert to meters for pose evaluation",
+  "parts_json": "concept_pose/partonomy/parts.json",
+  "objects": {
+    "num_objects": 21,
+    "object_names": [
+      "can_1", "box_2", "box_3", "can_4", "bottle_5", "can_6", "box_7", "box_8",
+      "can_9", "banana_10", "jug_11", "bottle_12", "bowl_13", "mug_14", "power_drill_15",
+      "wood_block_16", "scissors_17", "marker_18", "clamp_19", "clamp_20", "foam_brick_21"
+    ],
+    "bop_names": [
+      "002_master_chef_can", "003_cracker_box", "004_sugar_box", "005_tomato_soup_can",
+      "006_mustard_bottle", "007_tuna_fish_can", "008_pudding_box", "009_gelatin_box",
+      "010_potted_meat_can", "011_banana", "019_pitcher_base", "021_bleach_cleanser",
+      "024_bowl", "025_mug", "035_power_drill", "036_wood_block",
+      "037_scissors", "040_large_marker", "051_large_clamp", "052_extra_large_clamp",
+      "061_foam_brick"
+    ],
+    "categories": [
+      "can", "box", "box", "can", "bottle", "can", "box", "box",
+      "can", "banana", "jug", "bottle", "bowl", "mug", "power_drill",
+      "wood_block", "scissors", "marker", "clamp", "clamp", "foam_brick"
+    ],
+    "description": "21 everyday objects with category_id naming (e.g., can_1) for pipeline compatibility"
+  },
+  "format": {
+    "rgb_pattern": "{scene:06d}/rgb/{frame:06d}.png",
+    "depth_pattern": "{scene:06d}/depth/{frame:06d}.png",
+    "mask_pattern": "{scene:06d}/mask_visib/{frame:06d}_{instance:06d}.png",
+    "scene_gt_pattern": "{scene:06d}/scene_gt.json",
+    "description": "BOP19 format with visible masks and GT poses in JSON"
+  },
+  "test_set": {
+    "scenes": "48-59",
+    "num_test_scenes": 12,
+    "bop_curated_frames": 900,
+    "description": "BOP curated test set with 75 frames per scene (900 total)"
+  },
+  "notes": [
+    "CRITICAL: Depth maps are in PNG format with 0.1mm scale (uint16, use depth_scale=10000.0)",
+    "GT poses in scene_gt.json: cam_R_m2c (flattened 3x3), cam_t_m2c (mm units)",
+    "Masks are instance-level BOP format: mask_visib/{frame:06d}_{instance:06d}.png",
+    "Models in models/models/ (BOP .ply format, millimeters)",
+    "Category mapping for partonomy pipeline in data/ycbv/ycbv_object_categories.txt",
+    "Object naming: category_id format (can_1, scissors_17) for partonomy compatibility",
+    "BOP names (002_master_chef_can, 037_scissors) stored in frame_info for reference",
+    "Unlike TYOL, YCB-V has 21 unique objects (not categories with multiple instances)",
+    "One2Any's sampling strategy: first occurrence per object per scene becomes reference"
+  ]
+}

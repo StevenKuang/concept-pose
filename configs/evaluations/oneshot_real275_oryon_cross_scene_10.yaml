@@ -1,0 +1,59 @@
+# Real275 Oryon Cross-Scene Test Split (Limited to 10 pairs)
+# First 10 pairs from Oryon's official cross_scene_test split for quick testing
+
+name: oneshot_real275_oryon_cross_scene_10
+mode: oneshot
+description: One-shot pose estimation on Real275 using first 10 pairs from Oryon's cross_scene_test split
+
+# Dataset configuration
+dataset:
+  type: real275
+  config: configs/datasets/real275.json
+  # No category filter - includes all 6 categories
+
+# Object semantic labels configuration
+object:
+  num_semantic_labels: 15  # Number of part labels per category
+
+# Test pairs configuration - load from Oryon's fixed split
+pairs:
+  sampling:
+    mode: oryon_fixed_real275_split
+    split_name: cross_scene_test  # Official test split
+    num_pairs: 10  # Limit to first 10 pairs for quick testing
+    oryon_root: data/oryon_data/nocs
+
+# Pose estimation parameters
+estimation:
+  voxel_resolution: 64
+  ransac_iterations: 100000
+  ransac_threshold: 0.01
+  similarity_threshold: -2  # no filtering
+  max_correspondences: 10000
+  use_icp: true
+  anchor_pose_mode: relative
+  voxelize_anchor: false
+  voxelize_query: false  # Voxelize query frames for spatial regularization (default: false)
+  temperature: 1.0
+
+# Evaluation metrics configuration
+metrics:
+  renderer: pytorch3d
+  device: cuda
+
+# Mask generation settings
+mask_generation:
+  use_gt_masks: true
+  simplify_prompts: true
+  save_failed_masks: false
+
+# Output configuration
+output:
+  results_file: results_real275_oryon_cross_scene_10.json
+  visualize: false 
+  viz_dir: models/viz_real275_oryon_cross_scene_10
+  max_pairs: null
+
+# Execution options
+device: cuda
+num_workers: 0

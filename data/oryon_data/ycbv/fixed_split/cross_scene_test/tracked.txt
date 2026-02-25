@@ -1,0 +1,10 @@
+test, 48 307, 57 883, 20 clamp
+test, 57 391, 54 20, 12 bottle
+test, 49 1021, 53 183, 13 bowl
+test, 55 491, 48 397, 14 mug
+test, 57 1853, 48 749, 20 clamp
+test, 56 1190, 54 1637, 15 power_drill
+test, 48 697, 55 1394, 14 mug
+test, 58 1681, 52 316, 11 jug
+test, 54 982, 59 743, 2 box
+test, 49 1758, 59 1776, 9 can

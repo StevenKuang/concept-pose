@@ -1,0 +1,612 @@
+"""
+DatasetTyol: TYOL (ToyotaLight) BOP test set loader.
+
+Loads the TYOL test set in BOP19 format with 21 scenes and 21 object classes.
+TYOL contains everyday objects captured in real-world tabletop scenarios.
+"""
+
+import os
+import json
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple
+import numpy as np
+import cv2
+from PIL import Image
+
+from .base_dataset import BaseDataset
+from .preprocessing import (
+    resize_and_pad_image,
+    resize_and_pad_mask,
+    preprocess_depth_map
+)
+
+
+class DatasetTyol(BaseDataset):
+    """
+    TYOL (ToyotaLight) BOP test set loader.
+
+    Dataset structure:
+        tyol_test_bop19/
+            test/
+                000001/
+                    rgb/000000.png
+                    depth/000000.png  # PNG format, scale 1mm (uint16, millimeters)
+                    mask_visib/000000.png
+                    scene_gt.json  # BOP format GT poses
+                    scene_gt_info.json  # BOP format metadata
+                    scene_camera.json  # Camera intrinsics
+                ...
+                000021/
+                    ...
+        tyol_models/
+            models/
+                obj_000001.ply
+                ...
+                obj_000021.ply
+                models_info.json  # Contains diameters and symmetries
+
+    Camera intrinsics:
+        Per-frame calibration loaded from scene_camera.json (BOP format)
+    """
+
+    def __init__(
+        self,
+        bop_root: str,
+        oryon_root: str,
+        target_size: int = 518,
+        num_scenes: int = 21,
+        depth_scale: float = 1000.0,
+        **kwargs
+    ):
+        """
+        Initialize TYOL dataset.
+
+        Args:
+            bop_root: Root directory for BOP data (contains tyol_test_bop19/, tyol_models/)
+            oryon_root: Root directory for Oryon metadata (contains models_name.json)
+            target_size: Target image size for preprocessing
+            num_scenes: Number of scenes to load (default: 21)
+            depth_scale: Scale factor to convert depth to meters (default: 1000.0 for mm->m)
+        """
+        super().__init__(data_dir=bop_root, target_size=target_size)
+
+        self.bop_root = bop_root
+        self.oryon_root = oryon_root
+        self.num_scenes = num_scenes
+        self.depth_scale = depth_scale
+        self.test_dir = os.path.join(bop_root, 'tyol_test_bop19', 'test')
+        self.models_dir = os.path.join(bop_root, 'tyol_models', 'models')
+
+        # Load object names from Oryon's metadata
+        obj_names_path = os.path.join(oryon_root, 'models_name.json')
+        with open(obj_names_path, 'r') as f:
+            self._obj_id_to_names = json.load(f)  # {cls_id: [name, desc1, desc2]}
+
+        # Load models info (diameters, symmetries)
+        models_info_path = os.path.join(self.models_dir, 'models_info.json')
+        with open(models_info_path, 'r') as f:
+            self._models_info = json.load(f)
+
+        # Build frame index: (scene_idx, frame_num) for each global frame_idx
+        self.frame_index = []
+        self.frame_to_scene = {}  # global_idx -> (scene_idx, frame_num)
+
+        print(f"Indexing TYOL dataset from {self.test_dir}...")
+
+        # Load all scenes and their GT poses
+        self._scene_data = {}  # scene_idx -> {frame_idx: [{'obj_id': ..., 'R': ..., 't': ...}, ...]}
+        self._scene_cameras = {}  # scene_idx -> {frame_idx: {'cam_K': ..., 'depth_scale': ...}}
+
+        for scene_idx in range(1, num_scenes + 1):
+            scene_path = os.path.join(self.test_dir, f'{scene_idx:06d}')
+            if not os.path.exists(scene_path):
+                continue
+
+            # Load scene_gt.json
+            scene_gt_path = os.path.join(scene_path, 'scene_gt.json')
+            with open(scene_gt_path, 'r') as f:
+                scene_gt = json.load(f)
+
+            # Load scene_camera.json for per-frame intrinsics
+            scene_camera_path = os.path.join(scene_path, 'scene_camera.json')
+            with open(scene_camera_path, 'r') as f:
+                scene_camera = json.load(f)
+
+            # Parse GT data and camera data
+            scene_data = {}
+            scene_cam_data = {}
+            for frame_str, objects in scene_gt.items():
+                frame_num = int(frame_str)
+                scene_data[frame_num] = []
+
+                for obj_data in objects:
+                    # BOP format: cam_R_m2c is flattened 3x3 rotation, cam_t_m2c is in mm
+                    R_flat = np.array(obj_data['cam_R_m2c'], dtype=np.float32)
+                    R = R_flat.reshape(3, 3)
+                    t = np.array(obj_data['cam_t_m2c'], dtype=np.float32) / 1000.0  # mm to meters
+                    obj_id = int(obj_data['obj_id'])
+
+                    scene_data[frame_num].append({
+                        'obj_id': obj_id,
+                        'R': R,
+                        't': t
+                    })
+
+                # Load camera intrinsics for this frame
+                if frame_str in scene_camera:
+                    cam_K_flat = scene_camera[frame_str]['cam_K']
+                    cam_K = np.array(cam_K_flat, dtype=np.float32).reshape(3, 3)
+                    scene_cam_data[frame_num] = {
+                        'cam_K': cam_K,
+                        'depth_scale': scene_camera[frame_str].get('depth_scale', 1.0)
+                    }
+
+                # Add to global frame index
+                global_idx = len(self.frame_index)
+                self.frame_index.append((scene_idx, frame_num))
+                self.frame_to_scene[global_idx] = (scene_idx, frame_num)
+
+            self._scene_data[scene_idx] = scene_data
+            self._scene_cameras[scene_idx] = scene_cam_data
+
+        print(f"Loaded {len(self.frame_index)} frames from {num_scenes} scenes")
+
+        # Build object index: object_id -> list of frame indices
+        self._object_index = None
+        self._all_objects = None
+
+    def _build_object_index(self):
+        """Build index of which objects appear in which frames."""
+        if self._object_index is not None:
+            return
+
+        print("Building object index...")
+        self._object_index = {}
+        self._all_objects = set()
+
+        for global_idx, (scene_idx, frame_num) in enumerate(self.frame_index):
+            scene_data = self._scene_data[scene_idx]
+            if frame_num not in scene_data:
+                continue
+
+            for obj_data in scene_data[frame_num]:
+                obj_id = obj_data['obj_id']
+                self._all_objects.add(obj_id)
+
+                if obj_id not in self._object_index:
+                    self._object_index[obj_id] = []
+                self._object_index[obj_id].append(global_idx)
+
+        self._all_objects = sorted(list(self._all_objects))
+        print(f"Found {len(self._all_objects)} unique objects")
+
+    def _get_object_name(self, obj_id: int) -> str:
+        """
+        Get canonical object name from object ID.
+
+        Since TYOL has multiple objects with the same category name (e.g., multiple "mug" objects),
+        we append the object ID to make names unique: "mug_20", "mug_3", etc.
+
+        Args:
+            obj_id: Object ID (1-21)
+
+        Returns:
+            Unique object name (e.g., 'mug_20', 'remote_1', 'plate_12')
+        """
+        category = self._obj_id_to_names[str(obj_id)][0]
+        return f"{category}_{obj_id}"
+
+    def _get_object_id(self, object_name: str) -> Optional[int]:
+        """
+        Get object ID from object name.
+
+        Args:
+            object_name: Object name with ID suffix (e.g., 'mug_20', 'remote_1')
+
+        Returns:
+            Object ID or None if not found
+        """
+        # Parse "category_id" format
+        if '_' in object_name:
+            try:
+                obj_id = int(object_name.split('_')[-1])
+                if str(obj_id) in self._obj_id_to_names:
+                    return obj_id
+            except ValueError:
+                pass
+
+        # Fallback: try to find by category name only (less reliable)
+        for obj_id_str, names in self._obj_id_to_names.items():
+            if names[0] == object_name or f"{names[0]}_{obj_id_str}" == object_name:
+                return int(obj_id_str)
+
+        return None
+
+    def load_frame(
+        self,
+        frame_idx: int,
+        object_name: str,
+        mask_cache: Optional[Dict] = None
+    ) -> Dict:
+        """
+        Load frame data for one-shot pose estimation.
+
+        Args:
+            frame_idx: Global frame index
+            object_name: Object to extract (e.g., 'remote', 'mug')
+            mask_cache: Optional cached masks from Grounded SAM2
+
+        Returns:
+            Dictionary with preprocessed data:
+                - 'rgb': (H, W, 3) float32 [0-1], resized and padded
+                - 'mask': (H, W) float32 [0-1], resized and padded
+                - 'depth': (H, W) float32 meters, resized and padded
+                - 'K': (3, 3) camera intrinsics (adjusted for padding)
+                - 'pose': dict with 'R' (3, 3) and 't' (3,)
+                - 'frame_info': metadata dict
+        """
+        scene_idx, frame_num = self.frame_to_scene[frame_idx]
+        scene_path = os.path.join(self.test_dir, f'{scene_idx:06d}')
+
+        # Convert object name to ID
+        obj_id = self._get_object_id(object_name)
+        if obj_id is None:
+            raise ValueError(f"Unknown object name: {object_name}")
+
+        # Load RGB (keep as PIL Image for preprocessing)
+        rgb_path = os.path.join(scene_path, 'rgb', f'{frame_num:06d}.png')
+        rgb_raw = Image.open(rgb_path).convert('RGB')
+
+        # Load depth (BOP format: PNG with 1mm scale)
+        # PNG values are already in millimeters (verified: PNG value ~730 matches GT z ~693mm)
+        depth_path = os.path.join(scene_path, 'depth', f'{frame_num:06d}.png')
+        depth_mm = np.array(Image.open(depth_path)).astype(np.float32)
+
+        # Load mask
+        if mask_cache is not None and (frame_idx, object_name) in mask_cache:
+            # Use cached mask from Grounded SAM2
+            mask = mask_cache[(frame_idx, object_name)]
+        else:
+            # Use GT mask
+            # BOP format: mask_visib/{frame:06d}_{instance:06d}.png
+            # Find the instance index for this object in GT data
+            scene_data = self._scene_data[scene_idx][frame_num]
+            instance_idx = None
+            for idx, obj_data in enumerate(scene_data):
+                if obj_data['obj_id'] == obj_id:
+                    instance_idx = idx
+                    break
+
+            if instance_idx is None:
+                raise ValueError(
+                    f"Object {object_name} (id={obj_id}) not found in frame {frame_idx}"
+                )
+
+            # BOP mask filename: {frame:06d}_{instance:06d}.png
+            mask_path = os.path.join(scene_path, 'mask_visib', f'{frame_num:06d}_{instance_idx:06d}.png')
+
+            if not os.path.exists(mask_path):
+                raise FileNotFoundError(
+                    f"Mask file not found: {mask_path}\n"
+                    f"  Expected for object {object_name} (id={obj_id}), instance {instance_idx}"
+                )
+
+            # Load mask (BOP masks are binary: 255 for object, 0 for background)
+            # Keep as 0/255 for preprocessing, will be normalized to 0/1 later
+            mask = np.array(Image.open(mask_path))
+
+        # Get GT pose for this object
+        scene_data = self._scene_data[scene_idx][frame_num]
+        pose = None
+        for obj_data in scene_data:
+            if obj_data['obj_id'] == obj_id:
+                pose = {
+                    'R': obj_data['R'].copy(),
+                    't': obj_data['t'].copy()
+                }
+                break
+
+        if pose is None:
+            raise ValueError(
+                f"Pose not found for object {object_name} (id={obj_id}) in frame {frame_idx}"
+            )
+
+        # Store original size for metadata
+        orig_w, orig_h = rgb_raw.size
+
+        # Preprocess: resize and pad
+        rgb_tensor, coords = resize_and_pad_image(rgb_raw, self.target_size)
+        rgb_processed = rgb_tensor.cpu().numpy().transpose(1, 2, 0)  # (3, H, W) -> (H, W, 3)
+
+        # Preprocess mask and depth using same coords
+        mask_tensor = resize_and_pad_mask(mask, self.target_size, coords)
+        mask_processed = mask_tensor.cpu().numpy()
+        depth_processed = preprocess_depth_map(depth_mm, coords, self.target_size, self.depth_scale)
+
+        # Extract pad info from coords
+        paste_x, paste_y, paste_x_end, paste_y_end, _, _ = coords
+        scale = (paste_x_end - paste_x) / orig_w
+        pad_info = {
+            'scale': scale,
+            'pad_left': paste_x,
+            'pad_top': paste_y,
+            'pad_right': self.target_size - paste_x_end,
+            'pad_bottom': self.target_size - paste_y_end
+        }
+
+        # Get per-frame camera intrinsics from BOP data
+        cam_K_original = self._scene_cameras[scene_idx][frame_num]['cam_K'].copy()
+
+        # Adjust camera intrinsics for padding
+        K_adjusted = cam_K_original.copy()
+        K_adjusted[0, 0] *= pad_info['scale']  # fx
+        K_adjusted[1, 1] *= pad_info['scale']  # fy
+        K_adjusted[0, 2] = K_adjusted[0, 2] * pad_info['scale'] + pad_info['pad_left']  # cx
+        K_adjusted[1, 2] = K_adjusted[1, 2] * pad_info['scale'] + pad_info['pad_top']   # cy
+
+        # Metadata (use 'scene' 0-indexed for evaluator compatibility)
+        frame_info = {
+            'scene': scene_idx - 1,  # 0-indexed for evaluator
+            'scene_idx': scene_idx,  # Keep 1-indexed for internal use
+            'frame': frame_num,
+            'frame_num': frame_num,
+            'global_idx': frame_idx,
+            'object_name': object_name,
+            'object_id': obj_id,
+            'original_size': (orig_h, orig_w),
+            'processed_size': rgb_processed.shape[:2],
+            'pad_info': pad_info
+        }
+
+        return {
+            'rgb': rgb_processed,
+            'mask': mask_processed,
+            'depth': depth_processed,
+            'K': K_adjusted,
+            'pose': pose,
+            'frame_info': frame_info
+        }
+
+    def get_valid_frames_for_object(self, object_name: str) -> List[int]:
+        """
+        Find all frames containing a specific object.
+
+        Args:
+            object_name: Object name (e.g., 'remote', 'mug')
+
+        Returns:
+            List of frame indices where object appears
+        """
+        self._build_object_index()
+
+        obj_id = self._get_object_id(object_name)
+        if obj_id is None:
+            return []
+
+        return self._object_index.get(obj_id, [])
+
+    def get_all_objects(self, category: Optional[str] = None) -> List[str]:
+        """
+        Get all unique object instances in the dataset.
+
+        Args:
+            category: Optional category filter (not used for TYOL, returns all)
+
+        Returns:
+            List of object names
+        """
+        self._build_object_index()
+
+        # Return all object names
+        return [self._get_object_name(obj_id) for obj_id in self._all_objects]
+
+    def supports_gt_masks(self) -> bool:
+        """
+        Check if dataset provides ground truth instance masks.
+
+        Returns:
+            True (TYOL provides GT masks)
+        """
+        return True
+
+    def get_frame_info(self, frame_idx: int) -> Tuple[int, int]:
+        """
+        Get scene and frame metadata.
+
+        Args:
+            frame_idx: Global frame index
+
+        Returns:
+            Tuple of (scene_idx, frame_in_scene)
+        """
+        return self.frame_to_scene[frame_idx]
+
+    def get_frame_by_scene_and_num(self, scene_idx: int, frame_num: int) -> Optional[int]:
+        """
+        Get global frame index from scene index and frame number.
+
+        Args:
+            scene_idx: Scene index (1-21)
+            frame_num: Frame number within scene
+
+        Returns:
+            Global frame index or None if not found
+        """
+        for global_idx, (s_idx, f_num) in enumerate(self.frame_index):
+            if s_idx == scene_idx and f_num == frame_num:
+                return global_idx
+        return None
+
+    def get_gt_poses(self) -> List[Dict]:
+        """
+        Get ground truth poses for all frames.
+
+        Returns:
+            List of dicts, one per frame
+        """
+        gt_poses = []
+
+        for global_idx, (scene_idx, frame_num) in enumerate(self.frame_index):
+            scene_data = self._scene_data[scene_idx][frame_num]
+
+            # Collect all objects in this frame
+            model_names = []
+            rotations = []
+            translations = []
+            instance_ids = []
+
+            for obj_data in scene_data:
+                obj_id = obj_data['obj_id']
+                model_names.append(self._get_object_name(obj_id))
+                rotations.append(obj_data['R'])
+                translations.append(obj_data['t'])
+                instance_ids.append(obj_id)
+
+            gt_poses.append({
+                'model_names': model_names,
+                'rotations': rotations,
+                'translations': translations,
+                'instance_ids': instance_ids
+            })
+
+        return gt_poses
+
+    def get_intrinsics(self) -> np.ndarray:
+        """
+        Get camera intrinsics for all frames.
+
+        Returns:
+            Array of shape (N_frames, 3, 3) with camera matrices
+        """
+        num_frames = len(self.frame_index)
+        intrinsics = np.tile(self.camera_intrinsics, (num_frames, 1, 1))
+        return intrinsics
+
+    def get_mesh_path(self, object_name: str) -> str:
+        """
+        Get path to 3D mesh file for object.
+
+        Args:
+            object_name: Object name
+
+        Returns:
+            Path to .ply mesh file
+        """
+        obj_id = self._get_object_id(object_name)
+        if obj_id is None:
+            raise ValueError(f"Unknown object name: {object_name}")
+
+        mesh_path = os.path.join(self.models_dir, f'obj_{obj_id:06d}.ply')
+        if not os.path.exists(mesh_path):
+            raise FileNotFoundError(f"Mesh not found: {mesh_path}")
+
+        return mesh_path
+
+    def get_model_diameter(self, object_name: str) -> float:
+        """
+        Get model diameter for metric computation.
+
+        Args:
+            object_name: Object name
+
+        Returns:
+            Diameter in meters
+        """
+        obj_id = self._get_object_id(object_name)
+        if obj_id is None:
+            raise ValueError(f"Unknown object name: {object_name}")
+
+        # BOP models_info.json stores diameter in mm
+        diameter_mm = self._models_info[str(obj_id)]['diameter']
+        return diameter_mm / 1000.0  # Convert to meters
+
+    def get_model_symmetries(self, object_name: str) -> Dict:
+        """
+        Get model symmetry information.
+
+        Args:
+            object_name: Object name
+
+        Returns:
+            Symmetry dict from BOP models_info
+        """
+        obj_id = self._get_object_id(object_name)
+        if obj_id is None:
+            raise ValueError(f"Unknown object name: {object_name}")
+
+        model_info = self._models_info[str(obj_id)]
+
+        # Extract symmetry info (BOP format)
+        return {
+            'symmetries_discrete': model_info.get('symmetries_discrete', []),
+            'symmetries_continuous': model_info.get('symmetries_continuous', [])
+        }
+
+    def get_symmetry_transformations(
+        self,
+        object_name: str,
+        max_sym_disc_step: float = 0.05
+    ) -> list:
+        """
+        Get symmetry transformations in BOP format.
+
+        Matches Oryon's implementation exactly:
+        - Returns list of dicts with 'R' and 't' keys
+        - Discretizes continuous symmetries
+        - Always includes identity transformation
+
+        Args:
+            object_name: Object name
+            max_sym_disc_step: Maximum step for discretizing continuous symmetries
+
+        Returns:
+            List of symmetry transformations: [{'R': (3,3), 't': (3,1)}, ...]
+        """
+        import numpy as np
+
+        model_info = self.get_model_symmetries(object_name)
+
+        # Discrete symmetries (includes identity)
+        trans_disc = [{'R': np.eye(3), 't': np.zeros((3, 1))}]
+        if model_info.get('symmetries_discrete'):
+            for sym in model_info['symmetries_discrete']:
+                sym_4x4 = np.reshape(sym, (4, 4))
+                R = sym_4x4[:3, :3]
+                t = sym_4x4[:3, 3].reshape((3, 1))
+                trans_disc.append({'R': R, 't': t})
+
+        # Discretized continuous symmetries
+        trans_cont = []
+        if model_info.get('symmetries_continuous'):
+            for sym in model_info['symmetries_continuous']:
+                axis = np.array(sym['axis'])
+                offset = np.array(sym['offset']).reshape((3, 1))
+
+                # Discretize rotation around axis
+                discrete_steps_count = int(np.ceil(np.pi / max_sym_disc_step))
+                discrete_step = 2.0 * np.pi / discrete_steps_count
+
+                for i in range(discrete_steps_count):
+                    angle = i * discrete_step
+                    # Rodrigues' rotation formula
+                    K = np.array([
+                        [0, -axis[2], axis[1]],
+                        [axis[2], 0, -axis[0]],
+                        [-axis[1], axis[0], 0]
+                    ])
+                    R = np.eye(3) + np.sin(angle) * K + (1 - np.cos(angle)) * (K @ K)
+                    t = -R @ offset + offset
+                    trans_cont.append({'R': R, 't': t})
+
+        # Combine discrete and continuous symmetries
+        trans = []
+        for tran_disc in trans_disc:
+            if len(trans_cont):
+                for tran_cont in trans_cont:
+                    R = tran_cont['R'] @ tran_disc['R']
+                    t = tran_cont['R'] @ tran_disc['t'] + tran_cont['t']
+                    trans.append({'R': R, 't': t})
+            else:
+                trans.append(tran_disc)
+
+        return trans

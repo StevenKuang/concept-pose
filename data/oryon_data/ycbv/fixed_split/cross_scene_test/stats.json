@@ -1,0 +1,25 @@
+{
+  "split_name": "cross_scene_test",
+  "total_pairs": 2000,
+  "scene_mode": "cross_scene",
+  "num_objects": 16,
+  "same_scene_count": 0,
+  "cross_scene_count": 2000,
+  "test_set": "All frames",
+  "bop_filtered": false,
+  "seed": 42,
+  "source": "oryon_style_random_sampling",
+  "sampling_strategy": "random_with_bop_filtering",
+  "pairs_per_object": {
+    "banana": 125,
+    "bottle": 250,
+    "bowl": 125,
+    "box": 250,
+    "can": 500,
+    "clamp": 250,
+    "jug": 125,
+    "marker": 125,
+    "mug": 125,
+    "power_drill": 125
+  }
+}

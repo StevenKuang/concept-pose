@@ -1,0 +1,60 @@
+# LINEMOD-Occlusion (LM-O) Full Evaluation
+# For occlusion vs performance analysis (rebuttal experiment)
+
+name: oneshot_lmo_full
+mode: oneshot
+description: One-shot pose estimation on LM-O for occlusion vs performance analysis
+
+# Dataset configuration
+dataset:
+  type: lm
+  config: configs/datasets/lmo.json
+  # No category filter - includes all 8 objects
+
+# Object semantic labels configuration
+object:
+  num_semantic_labels: 15  # Number of part labels per category
+
+# Test pairs configuration - sample pairs for evaluation
+pairs:
+  sampling:
+    mode: oryon_style_lm  # Use Oryon-style random sampling
+    num_pairs: 1000  # Number of test pairs
+    scene_mode: same_scene  # LM-O has single scene
+    seed: 42
+    use_bop_targets: true
+
+# Pose estimation parameters
+estimation:
+  voxel_resolution: 64
+  ransac_iterations: 100000
+  ransac_threshold: 0.01
+  similarity_threshold: -2  # no filtering
+  max_correspondences: 10000
+  use_icp: true
+  anchor_pose_mode: relative
+  voxelize_anchor: false
+  voxelize_query: false
+  temperature: 1.0
+
+# Evaluation metrics configuration
+metrics:
+  renderer: pytorch3d
+  device: cuda
+
+# Mask generation settings
+mask_generation:
+  use_gt_masks: true
+  simplify_prompts: true
+  save_failed_masks: false
+
+# Output configuration
+output:
+  results_file: results_lmo_full.json
+  visualize: false
+  viz_dir: models/viz_lmo_full
+  max_pairs: null
+
+# Execution options
+device: cuda
+num_workers: 0

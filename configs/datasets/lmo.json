@@ -1,0 +1,60 @@
+{
+  "type": "lmo",
+  "description": "LINEMOD-Occlusion (LM-O) BOP test set - 1 test scene with heavy occlusion, 8 objects",
+  "paths": {
+    "root": "data/lmo",
+    "mesh_dir": "lmo_models/models",
+    "bop_targets_subdir": "lmo_base"
+  },
+  "num_scenes": 1,
+  "preprocessing": {
+    "target_size": 518,
+    "depth_scale": 1000.0,
+    "description": "Square resize with padding to maintain aspect ratio. Depth scale 1000.0 converts mm to m."
+  },
+  "camera": {
+    "description": "FIXED camera intrinsics per scene. Loaded from scene_camera.json."
+  },
+  "mesh_scale": 0.001,
+  "mesh_scale_description": "BOP meshes are in millimeters, convert to meters for pose evaluation",
+  "parts_json": "concept_pose/partonomy/parts.json",
+  "objects": {
+    "num_objects": 8,
+    "object_names": [
+      "obj_1", "obj_5", "obj_6", "obj_8", "obj_9", "obj_10", "obj_11", "obj_12"
+    ],
+    "bop_names": [
+      "ape", "can", "cat", "driller", "duck", "eggbox", "glue", "holepuncher"
+    ],
+    "symmetries": {
+      "obj_10": "discrete",
+      "obj_11": "discrete",
+      "description": "eggbox (10) and glue (11) have discrete symmetries"
+    },
+    "description": "8 objects from LINEMOD with heavy occlusion in single test scene"
+  },
+  "format": {
+    "rgb_pattern": "{scene:06d}/rgb/{frame:06d}.png",
+    "depth_pattern": "{scene:06d}/depth/{frame:06d}.png",
+    "mask_pattern": "{scene:06d}/mask_visib/{frame:06d}_{instance:06d}.png",
+    "scene_gt_pattern": "{scene:06d}/scene_gt.json",
+    "description": "BOP19 format with visible masks and GT poses in JSON"
+  },
+  "test_set": {
+    "scenes": "2",
+    "num_test_scenes": 1,
+    "bop_curated_frames": 200,
+    "use_bop_targets": true,
+    "description": "BOP curated test set with 200 target frames (single occlusion scene)"
+  },
+  "notes": [
+    "LM-O is LINEMOD with added occlusion - same format as LM",
+    "Single test scene (scene 2) with multiple objects and heavy occlusion",
+    "scene_gt_info.json contains visib_fract for occlusion analysis",
+    "Depth maps are in PNG format with 1.0mm units (uint16)",
+    "GT poses in scene_gt.json: cam_R_m2c (flattened 3x3), cam_t_m2c (mm units)",
+    "Models in lmo_models/models/ (BOP .ply format, millimeters)",
+    "BOP targets in lmo_base/test_targets_bop19.json",
+    "Object naming: simple obj_id format (obj_1, obj_5) for partonomy compatibility"
+  ]
+}

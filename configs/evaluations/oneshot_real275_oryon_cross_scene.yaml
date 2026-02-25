@@ -1,0 +1,63 @@
+# Real275 Oryon Cross-Scene Test Split
+# Official 2000-pair test split provided by Oryon team for Real275 evaluation
+# This split is used for fair comparison with Oryon and other baselines
+
+name: oneshot_real275_oryon_cross_scene
+mode: oneshot
+description: One-shot pose estimation on Real275 using Oryon's official cross_scene_test split (2000 pairs)
+
+# Dataset configuration
+dataset:
+  type: real275
+  config: configs/datasets/real275.json
+  # No category filter - includes all 6 categories
+
+# Object semantic labels configuration
+# Labels are auto-generated using Partonomy (LLM-based part label generation)
+object:
+  num_semantic_labels: 15  # Number of part labels per category
+  # Optional: Provide manual_labels in a config file to override auto-generation
+  # config: configs/real275_labels_manual.json
+
+# Test pairs configuration - load from Oryon's fixed split
+pairs:
+  sampling:
+    mode: oryon_fixed_real275_split
+    split_name: cross_scene_test  # Official 2000-pair split
+    # Optional: override oryon_root path (defaults to standard location)
+    oryon_root: data/oryon_data/nocs
+
+# Pose estimation parameters (matching Any6D/Oryon evaluation settings)
+estimation:
+  voxel_resolution: 64
+  ransac_iterations: 100000
+  ransac_threshold: 0.01
+  similarity_threshold: -2  # no filtering
+  max_correspondences: 10000
+  use_icp: true
+  anchor_pose_mode: relative
+  voxelize_anchor: false
+  voxelize_query: false
+
+# Evaluation metrics configuration
+metrics:
+  renderer: pytorch3d
+  device: cuda
+  # BOP metrics: VSD, MSSD, MSPD (aligned with Oryon/Any6D)
+
+# Mask generation settings
+mask_generation:
+  use_gt_masks: true  # Real275 provides GT instance masks
+  simplify_prompts: true
+  save_failed_masks: false
+
+# Output configuration
+output:
+  results_file: results_real275_oryon_cross_scene.json
+  visualize: false  # Disable for 2K pairs (too many)
+  viz_dir: models/viz_real275_oryon_cross_scene
+  max_pairs: null  # Evaluate all 2000 pairs
+
+# Execution options
+device: cuda
+num_workers: 0
