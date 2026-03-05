@@ -36,6 +36,7 @@ Author: ConceptPose Team
 Date: 2025
 """
 
+import os
 import random
 import numpy as np
 import torch
@@ -47,9 +48,12 @@ from typing import Dict, List, Optional, Tuple, Union
 # Default target size for preprocessing (same as test_oneshot.py)
 DEFAULT_TARGET_SIZE = 384
 
+# Required for deterministic cuBLAS operations
+os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+
 
 def set_deterministic_mode(seed: int = 42):
-    """Set random seed and force deterministic CUDA ops for reproducible results."""
+    """Set random seed and force all CUDA ops to be deterministic."""
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -57,6 +61,7 @@ def set_deterministic_mode(seed: int = 42):
         torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
+    torch.use_deterministic_algorithms(True)
 
 
 def _sam3_segment_worker(image_paths: List[str], prompt: str, device: str, result_save_path: str):
