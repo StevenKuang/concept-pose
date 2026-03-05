@@ -679,9 +679,6 @@ class WildPoseEstimator:
                 - 'target_size': preprocessing target size (384)
                 - 'semantic_labels': list of semantic labels used
         """
-        # Reset random seed for deterministic RANSAC results
-        set_deterministic_mode(42)
-
         # Ensure paths
         anchor_path = self._ensure_path(anchor_image)
         query_path = self._ensure_path(query_image)
@@ -790,6 +787,9 @@ class WildPoseEstimator:
         print(f"  Query intrinsics (fx, fy, cx, cy): ({query_K[0,0]:.1f}, {query_K[1,1]:.1f}, {query_K[0,2]:.1f}, {query_K[1,2]:.1f})")
 
         # Step 5: Run pose estimation
+        # Reset seed here (after all model loading/moving) so saliency + RANSAC
+        # always start from the same RNG state regardless of cache status.
+        set_deterministic_mode(42)
         print(f"\n[5/5] Running pose estimation...")
 
         # Reuse or create the OneShotPoseEstimator
