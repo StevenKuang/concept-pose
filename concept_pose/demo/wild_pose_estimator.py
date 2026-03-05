@@ -673,6 +673,9 @@ class WildPoseEstimator:
                 - 'target_size': preprocessing target size (384)
                 - 'semantic_labels': list of semantic labels used
         """
+        # Reset random seed for deterministic RANSAC results
+        set_deterministic_mode(42)
+
         # Ensure paths
         anchor_path = self._ensure_path(anchor_image)
         query_path = self._ensure_path(query_image)
