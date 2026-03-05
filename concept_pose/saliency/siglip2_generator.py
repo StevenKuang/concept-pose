@@ -179,6 +179,21 @@ class SigLIP2SaliencyGenerator:
         )
         print("SigLIP2SaliencyGenerator initialized successfully.")
 
+    def to(self, device: str):
+        """
+        Move model and tensors to the given device (e.g. 'cpu' or 'cuda').
+
+        The cam_wrapper.model is the same object as self.model, so moving
+        self.model moves it for GradCAM as well.
+        """
+        self.device = device
+        self.model = self.model.to(device)
+        self.text_input_ids = self.text_input_ids.to(device)
+        # cam_wrapper holds a reference to self.model (already moved)
+        # but update its text_input_ids reference too
+        self.cam_wrapper.text_input_ids = self.text_input_ids
+        return self
+
     def set_labels(self, new_labels: List[str]):
         """
         Update semantic labels without recreating the model.

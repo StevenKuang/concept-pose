@@ -1273,6 +1273,18 @@ class OneShotPoseEstimator:
 
         return R, t, info
 
+    def park_to_cpu(self):
+        """Move internal saliency generator to CPU to free GPU memory."""
+        gen = self._internal_saliency_generator or self._external_saliency_generator
+        if gen is not None:
+            gen.to('cpu')
+
+    def restore_to_gpu(self, device: str = 'cuda'):
+        """Move internal saliency generator back to GPU."""
+        gen = self._internal_saliency_generator or self._external_saliency_generator
+        if gen is not None:
+            gen.to(device)
+
     def cleanup(self):
         """Clean up resources (e.g., saliency generator)."""
         self._cleanup_saliency_generator()

@@ -176,8 +176,11 @@ class WildPoseEstimator:
             self._load_sam_model()
 
     def _load_depth_model(self):
-        """Load DepthAnything3 model."""
+        """Load DepthAnything3 model (or move from CPU if parked)."""
         if self._depth_model is not None:
+            # Model exists (possibly parked on CPU) — ensure on target device
+            self._depth_model = self._depth_model.to(device=self.device)
+            print(f"  DepthAnything3 moved to {self.device}")
             return
 
         print(f"Loading DepthAnything3 model: {self.depth_model_name}")
@@ -193,8 +196,11 @@ class WildPoseEstimator:
             )
 
     def _load_sam_model(self):
-        """Load SAM3 model for text-prompted segmentation."""
+        """Load SAM3 model for text-prompted segmentation (or move from CPU if parked)."""
         if self._sam_model is not None:
+            # Model exists (possibly parked on CPU) — ensure on target device
+            self._sam_model = self._sam_model.to(self.device)
+            print(f"  SAM3 moved to {self.device}")
             return
 
         print("Loading SAM3 model...")
@@ -226,6 +232,32 @@ class WildPoseEstimator:
             torch.cuda.empty_cache()
             gc.collect()
             print("  SAM3 unloaded")
+
+    def _park_depth_model(self):
+        """Move DepthAnything3 to CPU (keep weights, free GPU memory)."""
+        if self._depth_model is not None:
+            print("  Parking DepthAnything3 to CPU...")
+            self._depth_model.to('cpu')
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+
+    def _park_sam_model(self):
+        """Move SAM3 to CPU (keep weights, free GPU memory)."""
+        if self._sam_model is not None:
+            print("  Parking SAM3 to CPU...")
+            self._sam_model.to('cpu')
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+
+    def park_all_to_cpu(self):
+        """Park all models (depth, SAM, pose estimator) to CPU to free GPU memory."""
+        self._park_depth_model()
+        self._park_sam_model()
+        if self._estimator is not None:
+            self._estimator.park_to_cpu()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+        gc.collect()
 
     @staticmethod
     def _run_sam3_in_subprocess(image_path: str, prompt: str, device: str) -> np.ndarray:
@@ -594,7 +626,8 @@ class WildPoseEstimator:
         ransac_iterations: int = 50000,
         use_icp: bool = True,
         visualize: bool = False,
-        output_dir: Optional[str] = None
+        output_dir: Optional[str] = None,
+        keep_models: bool = False
     ) -> Dict:
         """
         Estimate relative pose between anchor and query images.
@@ -613,6 +646,10 @@ class WildPoseEstimator:
             use_icp: Whether to use ICP refinement
             visualize: Whether to generate visualizations
             output_dir: Directory to save visualizations (if visualize=True)
+            keep_models: If True, park models to CPU instead of deleting them.
+                This allows much faster subsequent calls (CPU→GPU move vs
+                from_pretrained reload). Call park_all_to_cpu() after to
+                explicitly free GPU memory while keeping weights on CPU.
 
         Returns:
             Dictionary containing:
@@ -700,8 +737,11 @@ class WildPoseEstimator:
         print(f"  Anchor depth range: [{anchor_depth.min():.3f}, {anchor_depth.max():.3f}] m")
         print(f"  Query depth range: [{query_depth.min():.3f}, {query_depth.max():.3f}] m")
 
-        # Unload depth model to free memory for SAM
-        self._unload_depth_model()
+        # Free depth model GPU memory for SAM
+        if keep_models:
+            self._park_depth_model()
+        else:
+            self._unload_depth_model()
 
         # Step 2: Get object masks (using subprocess to ensure VRAM is released)
         print(f"\n[2/5] Segmenting objects with SAM3 (subprocess)...")
@@ -743,21 +783,26 @@ class WildPoseEstimator:
         # Step 5: Run pose estimation
         print(f"\n[5/5] Running pose estimation...")
 
-        # Import and create estimator
+        # Reuse or create the OneShotPoseEstimator
         from concept_pose.pose.one_shot_estimator import OneShotPoseEstimator
 
-        estimator = OneShotPoseEstimator(
-            voxel_resolution=voxel_resolution,
-            ransac_iterations=ransac_iterations,
-            use_icp=use_icp,
-            device=self.device,
-            # Settings for in-the-wild estimation
-            max_correspondences=10000,      # Was 500 default, eval uses 10000
-            similarity_threshold=-2,        # No filtering
-            voxelize_anchor=False,          # Dense point cloud matching
-            voxelize_query=False,           # Dense point cloud matching
-            estimate_scale=False            # DA3 provides metric depth
-        )
+        if keep_models and self._estimator is not None:
+            estimator = self._estimator
+            # Restore SigLIP2 to GPU if parked on CPU
+            estimator.restore_to_gpu(self.device)
+        else:
+            estimator = OneShotPoseEstimator(
+                voxel_resolution=voxel_resolution,
+                ransac_iterations=ransac_iterations,
+                use_icp=use_icp,
+                device=self.device,
+                # Settings for in-the-wild estimation
+                max_correspondences=10000,      # Was 500 default, eval uses 10000
+                similarity_threshold=-2,        # No filtering
+                voxelize_anchor=False,          # Dense point cloud matching
+                voxelize_query=False,           # Dense point cloud matching
+                estimate_scale=False            # DA3 provides metric depth
+            )
 
         # Create dummy identity pose for anchor (relative mode)
         # In relative mode, we compute the pose of query relative to anchor
@@ -796,8 +841,11 @@ class WildPoseEstimator:
                 return_debug_info=False  # Don't compute expensive debug KL scores (causes OOM)
             )
 
-            # Cleanup
-            estimator.cleanup()
+            # Cleanup or park the estimator
+            if keep_models:
+                self._estimator = estimator
+            else:
+                estimator.cleanup()
 
             # Prepare result
             result = {
@@ -866,7 +914,10 @@ class WildPoseEstimator:
             return result
 
         except Exception as e:
-            estimator.cleanup()
+            if keep_models:
+                self._estimator = estimator
+            else:
+                estimator.cleanup()
             raise
 
     def _ensure_path(self, image: Union[str, Path, Image.Image]) -> str:
