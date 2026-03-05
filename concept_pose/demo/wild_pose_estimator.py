@@ -49,13 +49,14 @@ DEFAULT_TARGET_SIZE = 384
 
 
 def set_deterministic_mode(seed: int = 42):
-    """Set random seed for reproducible RANSAC results (including GPU operations)."""
+    """Set random seed and force deterministic CUDA ops for reproducible results."""
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
-    print(f"Deterministic mode enabled (seed={seed})")
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 
 def _sam3_segment_worker(image_paths: List[str], prompt: str, device: str, result_save_path: str):
